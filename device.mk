@@ -7,5 +7,9 @@
 # Inherit from sm6375-common
 $(call inherit-product, device/oneplus/sm6375-common/sm6375.mk)
 
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
+
 # Inherit proprietary files
 $(call inherit-product-if-exists, vendor/oneplus/larry/larry-vendor.mk)
