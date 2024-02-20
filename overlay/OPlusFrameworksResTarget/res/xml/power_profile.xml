@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+**
+** Copyright 2009, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License")
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<device name="Android">
+  <!-- Most values are the incremental current used by a feature,
+       in mA (measured at nominal voltage).
+       The default values are deliberately incorrect dummy values.
+       OEM's must measure and provide actual values before
+       shipping a device.
+       Example real-world values are given in comments, but they
+       are totally dependent on the platform and can vary
+       significantly, so should be measured on the shipping platform
+       with a power meter. -->
+  <item name="none">0</item>
+  <item name="ambient on">35</item>
+  <item name="screen.on">120</item>  <!-- ~120mA -->
+  <item name="screen.full">390</item>  <!-- ~390mA -->
+  <item name="bluetooth.active">80</item> <!-- Bluetooth data transfer, ~10mA -->
+  <item name="bluetooth.on">1.5</item>  <!-- Bluetooth on & connectable, but not connected, ~0.1mA -->
+  <item name="wifi.on">2.8</item>  <!-- ~3mA -->
+  <item name="wifi.active">190</item>  <!-- WIFI data transfer, ~200mA -->
+  <item name="wifi.scan">130</item>  <!-- WIFI network scanning, ~100mA -->
+  <item name="audio">0</item> <!-- ~10mA -->
+  <item name="video">0</item> <!-- ~50mA -->
+  <item name="camera.flashlight">150</item> <!-- Avg. power for camera flash, ~160mA -->
+  <item name="camera.avg">550</item> <!-- Avg. power use of camera in standard usecases, ~550mA -->
+  <item name="gps.on">45</item> <!-- ~50mA -->
+
+  <item name="dsp.audio">16.59</item> <!-- ~10mA -->
+  <item name="dsp.video">74.85</item> <!-- ~50mA -->
+  <item name="bluetooth.controller.idle">1.7</item>  <!--new add -->
+  <item name="bluetooth.controller.rx">76</item>  <!--new add  -->
+  <item name="bluetooth.controller.tx">176</item>  <!--new add  -->
+  <item name="bluetooth.controller.voltage">3300</item>  <!--new add -->
+
+  <!-- Radio related values. For modems without energy reporting support in firmware, use
+       radio.active, radio.scanning, and radio.on. -->
+  <item name="radio.active">125</item> <!-- ~200mA -->
+  <item name="radio.scanning">5.4</item> <!-- cellular radio scanning for signal, ~10mA -->
+  <!-- Current consumed by the radio at different signal strengths, when paging -->
+  <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
+      <value>2</value> <!-- ~2mA -->
+      <value>1</value> <!-- ~1mA -->
+  </array>
+
+
+  <!-- Radio related values. For modems WITH energy reporting support in firmware, use
+       modem.controller.idle, modem.controller.tx, modem.controller.rx, modem.controller.voltage.
+       -->
+  <item name="modem.controller.idle">2</item>
+  <item name="modem.controller.rx">68</item>
+  <array name="modem.controller.tx"> <!-- Strength 0 to 4 -->
+      <value>105</value>
+      <value>106</value>
+      <value>113</value>
+      <value>147</value>
+      <value>218</value>
+  </array>
+  <item name="modem.controller.voltage">800</item>
+
+  <!-- A list of heterogeneous CPU clusters, where the value for each cluster represents the
+       number of CPU cores for that cluster.
+
+       Ex:
+       <array name="cpu.clusters.cores">
+         <value>4</value> // cluster 0 has cpu0, cpu1, cpu2, cpu3
+         <value>2</value> // cluster 1 has cpu4, cpu5
+       </array> -->
+  <array name="cpu.clusters.cores">
+      <value>6</value> <!-- cluster 0 has cpu0, cpu1, cpu2, cpu3, cpu4, cpu5 -->
+      <value>2</value> <!-- cluster 1 has  cpu6, cpu7 -->
+  </array>
+
+    <!-- Different CPU speeds for cluster 0 as reported in
+       /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state.
+
+       There must be one of these for each cluster, labeled:
+       cpu.speeds.cluster0, cpu.speeds.cluster1, etc... -->
+  <array name="cpu.core_speeds.cluster0">
+      <value>300000</value>   <!-- 300  MHz CPU speed -->
+      <value>576000 </value>  <!-- 576  MHz CPU speed -->
+      <value>691200 </value>  <!-- 691.2 MHz CPU speed -->
+      <value>940800 </value>  <!-- 940.8 MHz CPU speed -->
+      <value>1113600 </value>  <!-- 1113.6 MHz CPU speed -->
+      <value>1324800 </value>  <!-- 1324.8 MHz CPU speed -->
+      <value>1516800 </value>  <!-- 1516.8 MHz CPU speed -->
+      <value>1651200 </value>  <!-- 1651.2MHz CPU speed -->
+      <value>1708800 </value>  <!-- 1708.8 MHz CPU speed -->
+      <value>1804800  </value>  <!-- 1804.8 MHz CPU speed -->
+  </array>
+
+  <array name="cpu.core_speeds.cluster1">
+      <value>691200 </value>  <!-- 691.2  MHz CPU speed -->
+      <value>940800 </value>  <!-- 940.8  MHz CPU speed -->
+      <value>1228800 </value>  <!-- 1228.8  MHz CPU speed -->
+      <value>1401600 </value>  <!-- 1401.6  MHz CPU speed -->
+      <value>1516800 </value>  <!-- 1516.8  MHz CPU speed -->
+      <value>1651200 </value>  <!-- 1651.2  MHz CPU speed -->
+      <value>1804800 </value>  <!-- 1804.8  MHz CPU speed -->
+      <value>1900800 </value>  <!-- 1900.8  MHz CPU speed -->
+      <value>2054400 </value>  <!-- 2054.4  MHz CPU speed -->
+      <value>2208000 </value>  <!-- 2208  MHz CPU speed -->
+  </array>
+
+  <!-- Current at each CPU speed for cluster 0, as per 'cpu.speeds.cluster0'.
+       Like cpu.speeds.cluster0, there must be one of these present for
+       each heterogeneous CPU cluster. -->
+  <array name="cpu.core_power.cluster0">
+      <value>30</value>  <!-- ~30mA -->
+      <value>32</value>  <!-- ~32mA -->
+      <value>34</value>  <!-- ~34mA -->
+      <value>40</value>  <!-- ~40mA -->
+      <value>47</value>  <!-- ~47mA -->
+      <value>56</value>  <!-- ~56mA -->
+      <value>60</value>  <!-- ~60mA -->
+      <value>62</value>  <!-- ~62mA -->
+      <value>67</value>  <!-- ~67mA -->
+      <value>72</value>  <!-- ~72mA -->
+  </array>
+
+  <!-- Current at each CPU speed for cluster 1, as per 'cpu.speeds.cluster1'.
+       Like cpu.speeds.cluster1, there must be one of these present for
+       each heterogeneous CPU cluster. -->
+  <array name="cpu.core_power.cluster1">
+      <value>62</value>  <!-- ~62mA -->
+      <value>79</value>  <!-- ~79mA -->
+      <value>87</value>  <!-- ~87mA -->
+      <value>100</value>  <!-- ~100mA -->
+      <value>114</value>  <!-- ~114mA -->
+      <value>136</value>  <!-- ~136mA -->
+      <value>151</value>  <!-- ~151mA -->
+      <value>165</value>  <!-- ~165mA -->
+      <value>180</value>  <!-- ~180mA -->
+      <value>234</value>  <!-- ~234mA -->
+  </array>
+
+  <item name="cpu.awake">15.68</item>
+  <!-- Additional power consumption by CPU excluding cluster and core when  running -->
+  <!-- Current when CPU is idle -->
+  <item name="cpu.idle">6.5</item>
+
+  <!-- Memory bandwidth power values in mA at the rail. There must be one value
+       for each bucket defined in the device tree. -->
+  <array name="memory.bandwidths">
+    <value>22.7</value> <!-- mA for bucket: 100mb/s-1.5 GB/s memory bandwidth -->
+  </array>
+
+  <!-- This is the battery capacity in mAh (measured at nominal voltage) -->
+  <item name="battery.capacity">5000</item>
+
+  <!-- Wifi related values. -->
+  <!-- Idle Receive current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.idle">1.35</item>
+  <!-- Rx current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.rx">180</item>
+  <!-- Tx current for wifi radio in mA. 0 by default-->
+  <item name="wifi.controller.tx">205</item>
+  <!-- Current at each of the wifi Tx levels in mA. The number of tx levels varies per device
+       and is available only of wifi chipsets which support the tx level reporting. Use
+        wifi.tx for other chipsets. none by default -->
+  <array name="wifi.controller.tx_levels"> <!-- mA -->
+  </array>
+  <!-- Operating volatage for wifi radio in mV. 0 by default-->
+  <item name="wifi.controller.voltage">3300</item>
+
+  <array name="wifi.batchedscan"> <!-- mA -->
+    <value>.0002</value> <!-- 1-8/hr -->
+    <value>.002</value>  <!-- 9-64/hr -->
+    <value>.02</value>   <!-- 65-512/hr -->
+    <value>.2</value>    <!-- 513-4,096/hr -->
+    <value>2</value>    <!-- 4097-/hr -->
+  </array>
+
+</device>

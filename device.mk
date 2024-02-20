@@ -7,6 +7,10 @@
 # Inherit from sm6375-common
 $(call inherit-product, device/oneplus/sm6375-common/sm6375.mk)
 
+# Overlays
+PRODUCT_PACKAGES += \
+    OPlusFrameworksResTarget
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
